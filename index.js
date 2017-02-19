@@ -12,7 +12,7 @@ var app2 = express()
 var MessengerPlatform = require('facebook-bot-messenger');
 /*
 var bot = MessengerPlatform.create({
-    pageID: '',
+    pageID: prcess.env.pageID,
     appID: process.env.appID,
     appSecret: process.env.appSecret,
     validationToken: 'sup_dawg',

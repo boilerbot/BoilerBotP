@@ -10,6 +10,7 @@ const app = express()
 
 var app2 = express()
 var MessengerPlatform = require('facebook-bot-messenger');
+/*
 var bot = MessengerPlatform.create({
     pageID: '',
     appID: process.env.appID,
@@ -18,6 +19,7 @@ var bot = MessengerPlatform.create({
     pageToken: process.env.FB_PAGE_ACCESS_TOKEN
 }, server);
 app2.use(bot.webhook('/webhook'));
+*/
 //
 // bot.on(MessengerPlatform.Events.MESSAGE, function(userId, message) {
 //     // add code below.

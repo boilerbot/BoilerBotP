@@ -8,6 +8,22 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 
+var app2 = express()
+var MessengerPlatform = require('facebook-bot-messenger');
+var bot = MessengerPlatform.create({
+    pageID: '',
+    appID: process.env.appID,
+    appSecret: process.env.appSecret,
+    validationToken: 'sup_dawg',
+    pageToken: process.env.FB_PAGE_ACCESS_TOKEN
+}, server);
+app2.use(bot.webhook('/webhook'));
+//
+// bot.on(MessengerPlatform.Events.MESSAGE, function(userId, message) {
+//     // add code below.
+// });
+
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -38,7 +54,8 @@ app.post('/webhook/', function (req, res) {
             text = event.message.text
             //let text = event.message.text
             if (text == 'hi') {
-                //do something
+                sendGenericMessage(sender)
+                continue
             }
             sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }

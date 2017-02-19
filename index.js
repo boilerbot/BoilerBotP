@@ -1,7 +1,7 @@
 /**
  * Created by kushrustagi on 2/19/17.
  */
-'use strict'
+//'use strict'
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -61,6 +61,49 @@ function sendTextMessage(sender, text) {
         method: 'POST',
         json: {
             recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+function sendGenericMessage(sender) {
+    messageData = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Ai Chat Bot Communities",
+                    "subtitle": "Communities to Follow",
+                    "image_url": "http://1u88jj3r4db2x4txp44yqfj1.wpengine.netdna-cdn.com/...",
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "https://www.facebook.com/groups/aic...",
+                        "title": "FB Chatbot Group"
+                    }, {
+                        "type": "web_url",
+                        "url": "https://www.reddit.com/r/Chat_Bots/",
+                        "title": "Chatbots on Reddit"
+                    },{
+                        "type": "web_url",
+                        "url": "https://twitter.com/aichatbots",
+                        "title": "Chatbots on Twitter"
+                    }],
+                }]
+            }
+        }
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.8/me/...',
+        qs: {access_token: token},
+        method: 'POST',
+        json: {
+            recipient: {id: sender},
             message: messageData,
         }
     }, function(error, response, body) {
